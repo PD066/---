@@ -7,14 +7,6 @@ screen = pygame.display.set_mode((1500, 800))
 pygame.display.set_caption('ритм игра')
 icon = pygame.image.load('ритм игра/images/icon.png').convert_alpha()
 pygame.display.set_icon(icon)
-dead_player = [
-    pygame.image.load('ритм игра/images/анимация/смерть/Dead.1.png').convert_alpha(),
-pygame.image.load('ритм игра/images/анимация/смерть/Dead.2.png').convert_alpha(),
-pygame.image.load('ритм игра/images/анимация/смерть/Dead.3.png').convert_alpha(),
-pygame.image.load('ритм игра/images/анимация/смерть/Dead.4.png').convert_alpha(),
-pygame.image.load('ритм игра/images/анимация/смерть/Dead.5.png').convert_alpha(),
-pygame.image.load('ритм игра/images/анимация/смерть/Dead.6.png').convert_alpha()
-]#создание_анимации_смерти
 enemy_run = [
     pygame.image.load('ритм игра/images/анимация/бег_врагов/Run.1.png').convert_alpha(),
     pygame.image.load('ритм игра/images/анимация/бег_врагов/Run.2.png').convert_alpha(),
@@ -99,15 +91,13 @@ while running:
 
                 #Проверка_cтолкновения_c_игроком
                 if player_rect.colliderect(enemy['rect']):
-                    for event in pygame.event.get():
-                        if event.type == dead_timer:
-                            screen.blit(dead_player[dead_anim_count], (686, 622))
-                            gameplay = False
+                    gameplay = False
 
                 if enemy['direction'] == 1 and enemy['rect'].x > 686 and (keys[pygame.K_LEFT] or keys[pygame.K_a]):
+                    score += 50
                     enemy_list_in_game.remove(enemy)
                 elif enemy['direction'] == 0 and enemy['rect'].x < 814 and (keys[pygame.K_RIGHT] or keys[pygame.K_d]):
-                    print("Убил врага слева!")
+                    score += 50
                     enemy_list_in_game.remove(enemy)
 
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
